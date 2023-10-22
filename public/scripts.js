@@ -1,8 +1,6 @@
 
-
-import { createChart } from 'lightweight-charts';
-
 console.log("scripts.js is loaded");
+
 
 
 function addMarkerToChart(data) {
@@ -31,23 +29,23 @@ function generateRandomData(previousValue) {
 }
 
 
-const chart = createChart(document.getElementById('chart'), { width: 400, height: 300 });
-const lineSeries = chart.addLineSeries();
+const chart = lightweightCharts.createChart(document.getElementById('chart'));
+// const lineSeries = chart.addLineSeries();
 
 
 let lastValue = 100;  // Starting value, can be any initial value you prefer
 
-// Set initial data
-const initialData = [
-    { time: '2023-10-21', value: 98.5 },
-    { time: '2023-10-22', value: 99.5 },
-    { time: '2023-10-23', value: lastValue }
-];
-lineSeries.setData(initialData);
+// // Set initial data
+// const initialData = [
+//     { time: '2023-10-21', value: 98.5 },
+//     { time: '2023-10-22', value: 99.5 },
+//     { time: '2023-10-23', value: lastValue }
+// ];
+// lineSeries.setData(initialData);
 
-// Real-time data updates (every 5s)
-setInterval(() => {
-    const newData = generateRandomData(lastValue);
-    lineSeries.update(newData);
-    lastValue = newData.value;
-}, 5000);
+// // Real-time data updates (every 5s)
+// setInterval(() => {
+//     const newData = generateRandomData(lastValue);
+//     lineSeries.update(newData);
+//     lastValue = newData.value;
+// }, 5000);
