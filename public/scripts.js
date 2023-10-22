@@ -30,12 +30,12 @@ function generateMarker(time) {
 }
 
 // Initial value for the data point
-const startTime = Math.floor(Date.now() / 1000);
 let lastValue = 50;
 let lastTime = Math.floor(Date.now() / 1000);
 const allMarkers = [];
 
 // Update the chart with random data and markers every 5 seconds
+// TODO: make regular queries here, and populate the charts w real data (from bq, or local, etc)
 setInterval(() => {
     lastTime = lastTime + 5; // Increment time by 5 seconds
     lastValue = generateDataPoint(lastValue);
@@ -47,14 +47,14 @@ setInterval(() => {
     const marker = generateMarker(lastTime);
     if (marker) {
         allMarkers.push(marker);
-        lineSeries.setMarkers(allMarkers); // Set all markers, including the new one
+        lineSeries.setMarkers(allMarkers);
     }
 
     // Adjust the visible range of the time scale:
     const range = chart.timeScale().getVisibleRange();
     if (range) {
         const newRange = {
-            from: lastTime - 500,
+            from: lastTime - 500, // think this is in obs, not seconds or time anything.
             to: range.to + 5
         };
         chart.timeScale().setVisibleRange(newRange);
