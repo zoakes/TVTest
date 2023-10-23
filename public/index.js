@@ -1,5 +1,8 @@
 const log = console.log;
 
+
+
+
 const chartProperties = {
   width:1500,
   height:400,
