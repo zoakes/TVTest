@@ -1,6 +1,21 @@
 // chartProperties, and chart are defined in index.js! DOTN redefine.
 const lineSeries = chart.addBaselineSeries();
 
+
+// ZO Chart (other chart below)
+const narrow_props = {
+    width:1500,
+    height:200,
+    timeScale:{
+      timeVisible:true,
+      secondsVisible:false,
+    }
+  }
+
+const z_chart = LightweightCharts.createChart(document.getElementById('zochart'),narrow_props);
+const z_candle = z_chart.addCandlestickSeries();
+z_candle.setData(data);
+
 // Function to generate a random data point
 function generateDataPoint(previousValue) {
     const randomChange = Math.random() * 2 - 1; // Random value between -1 and 1
@@ -59,6 +74,7 @@ setInterval(() => {
         };
         chart.timeScale().setVisibleRange(newRange);
     }
+
 }, 500);
 
 
