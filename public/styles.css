@@ -19,7 +19,7 @@ h2 {
     margin-bottom: 20px;
     padding: 10px;
     color: #fff;
-    animation: spin 10s infinite linear; /* 10 seconds for a full spin, adjust as needed */
+    animation: spin 10s infinite linear;
 }
 
 /*

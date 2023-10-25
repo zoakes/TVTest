@@ -21,6 +21,8 @@ export default class ChartInstance {
         return previousValue + randomChange;
     }
 
+    // this is where we could plot 'fills', real 'events' to mark within the series.
+
     generateMarker(time) {
         const randomValue = Math.random();
         if (randomValue > 0.95) {
@@ -40,6 +42,8 @@ export default class ChartInstance {
         }
         return null;
     }
+
+    // this is where we poll for updates. 
 
     startUpdates() {
         setInterval(() => {
@@ -101,7 +105,3 @@ var darkTheme = {
 			lineColor: 'rgba(32, 226, 47, 1)',
 	},
 };
-
-
-// Common JS Syntax?
-// module.exports = ChartInstance;
