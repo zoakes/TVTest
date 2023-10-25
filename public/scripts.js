@@ -36,7 +36,7 @@ function fetchAndUpdateCharts() {
     fetch('/data')
         .then(response => response.json())
         .then(data => {
-            // Assuming data is an array of new data points
+            // Assuming data is an array of new data points (Is it?)
             data.forEach(row => {
                 // Assuming point.algo_id maps to the id of the chart
                 if (charts[row.algo_id]) {
@@ -50,7 +50,7 @@ function fetchAndUpdateCharts() {
 }
 
 // Start polling
-setInterval(fetchAndUpdateCharts, 1000);
+setInterval(fetchAndUpdateCharts, 500);
 
 // ensure it ran fully w console log
 log("fuck yourself javascript.");
