@@ -10,11 +10,13 @@ const chartProperties = {
 }
 
 // example chart creation -- candle.
+
 // const domElement = document.getElementById('tvchart');
 // const chart = LightweightCharts.createChart(domElement,chartProperties);
 // const candleSeries = chart.addCandlestickSeries();
 
-// example candlestick data. 
+// example candle data format.
+
 // const data = [
 //     { time: '2018-10-19', open: 180.34, high: 180.99, low: 178.57, close: 179.85 },
 //     { time: '2018-10-22', open: 180.82, high: 181.40, low: 177.56, close: 178.75 },
