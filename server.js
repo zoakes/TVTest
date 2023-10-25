@@ -1,10 +1,27 @@
 const express = require('express');
+const fs = require('fs');
 const app = express();
-const PORT = 3000;
+const port = 3000;
 
-// Serve static files from the "public" directory
 app.use(express.static('public'));
 
-app.listen(PORT, () => {
-    console.log(`Server is running on http://localhost:${PORT}`);
+app.get('/data', (req, res) => {
+  fs.readFile('data.json', 'utf8', (err, data) => {
+    if (err) {
+      res.status(500).send({ error: 'Error reading file' });
+      return;
+    }
+    try {
+      const jsonData = JSON.parse(data);
+      res.json(jsonData);
+    } catch (parseError) {
+      res.status(500).send({ error: 'Error parsing JSON data' });
+    }
+  });
+});
+
+
+
+app.listen(port, () => {
+  console.log(`Server running at http://localhost:${port}`);
 });

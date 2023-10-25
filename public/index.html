@@ -13,6 +13,21 @@
     <div id="chart4"></div>
     <div id="chart5"></div>
     <div id="chart6"></div>
+    <!-- <div id="data-container">Loading...</div> -->
+    <!-- <script>
+        async function fetchData() {
+            try {
+                const response = await fetch('/data');
+                const jsonData = await response.json();
+                document.getElementById('data-container').innerText = JSON.stringify(jsonData, null, 2);
+            } catch (error) {
+                document.getElementById('data-container').innerText = 'Failed to load data';
+                console.error('Error fetching data:', error);
+            }
+        }
+
+        setInterval(fetchData, 1000); // Update every second
+    </script> -->
   </body>
   <script src="https://unpkg.com/lightweight-charts/dist/lightweight-charts.standalone.production.js"></script>
   <script type="text/javascript" src="index.js"></script>
