@@ -10,7 +10,8 @@ const chartProps = {
 };
 
 
-// Example mapping of algo_id to HTML IDs
+// TODO: create config of algo_ids somehow?
+// Example mapping of algo_id to HTML chart (class) IDs 
 const algo_id_to_chart_id = {
     'algo1': 'chart1',
     'algo2': 'chart2',
@@ -36,34 +37,29 @@ Object.entries(algo_id_to_chart_id).forEach(([algoId, chartId]) => {
 });
 
 
-// ---------------------- NEW code (REAL data) ---------------------------- 
-/*
+// ------------------------- WS Logic -------------------------------- 
 
-// Polling for new data -- this will replace other piece inside ChartInstance that polls.
-function fetchAndUpdateCharts() {
-    fetch('/data')
-        .then(response => response.json())
-        .then(data => {
-            // Assuming data is an array of new data points (Is it?)
-            data.forEach(row => {
-                // Assuming point.algo_id maps to the id of the chart
-                if (charts[row.algo_id]) {
-                    // Update the chart with the new data
-                    charts[row.algo_id].updateWithData(row);
-                    
-                }
-            });
-        })
-        .catch(error => console.error('Error fetching data:', error));
-}
+const ws = new WebSocket('ws://localhost:3000');
 
-// Start polling
-setInterval(fetchAndUpdateCharts, 500);
+ws.onopen = () => {
+    console.log('Connected to WebSocket server.');
+};
 
-*/
+ws.onmessage = (event) => {
+    const message = JSON.parse(event.data);
+    
+    if (message.type === 'update') {
+        message.data.forEach(row => {
+            if (charts[row.algo_id]) {
+                charts[row.algo_id].updateWithData(row);
+            }
+        });
+    }
+};
 
+ws.onerror = (error) => {
+    console.log('WebSocket error:', error);
+};
 
 // ensure it ran fully w console log
 log("fuck yourself javascript.");
-
-// requires incognito window!
