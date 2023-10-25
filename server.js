@@ -20,16 +20,25 @@ const watcher = chokidar.watch('data.csv', {
 
 watcher.on('add', path => readCsv(path)).on('change', path => readCsv(path));
 
-// TODO: make this 'faster'
+let latestTimestamp = 0; // Assuming timestamp is a numeric value like Unix epoch
+
 function readCsv(filePath) {
-  const results = [];
+  const newRows = []; // Store only new rows
+
   fs.createReadStream(filePath)
     .pipe(csvParser())
-    .on('data', (data) => results.push(data))
+    .on('data', (data) => {
+      const rowTimestamp = parseInt(data.time); // Convert timestamp to a number, if it isn't already
+      if (rowTimestamp > latestTimestamp) {
+        newRows.push(data); // Add only new rows
+        latestTimestamp = rowTimestamp; // Update the latest timestamp
+      }
+    })
     .on('end', () => {
-      latestData = results;
-      console.log('CSV update successfully processed');
-      console.log('rows processed', results.length);
+      if (newRows.length > 0) {
+        latestData = newRows; // Update latestData with only new rows
+        console.log(`New CSV data processed with ${newRows.length} new row(s)`);
+      }
     });
 }
 
