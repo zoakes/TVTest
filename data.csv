@@ -1,3 +1,3 @@
 time,algo_id,revision_id,child_bid,child_ask,child_nbid,child_nask,child_fbid, child_fask,hedge_bid,hedge_ask,hedge_fbid,hedge_fask,algo_net_delta
 2023-10-25T12:00:00,algo1,1,1.5,1.6,10,0,0,0,0,0,0,0,0
-2023-10-25T12:00:00,algo1,1,1.5,1.6,10,0,0,0,0,0,0,0,0
+2023-10-25T12:00:00,algo1,1,1.5,1.7,10,0,0,0,0,0,0,0,0

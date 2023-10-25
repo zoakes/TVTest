@@ -20,16 +20,24 @@ const algo_id_to_chart_id = {
     'algo6': 'chart6',
 };
 
-// Add as many as you need (Must be in HTML) -- no conditional rendering.
-// const chartIds = ['chart1', 'chart2', 'chart3', 'chart4','chart5','chart6']; 
-const chartIds = Object.values(algo_id_to_chart_id);
+const chartsContainer = document.getElementById('charts-container');
 const charts = {};
 
 // Here, key is algo_id and value is the chart ID.
 Object.entries(algo_id_to_chart_id).forEach(([algoId, chartId]) => {
+
+    // Dynamic Div Creation + append to parent container.
+    const div = document.createElement('div');
+    div.id = chartId;
+    chartsContainer.appendChild(div);
+    
     charts[algoId] = new ChartInstance(chartId, algoId, chartProps);
     // Additional configuration as needed
 });
+
+
+// ---------------------- NEW code (REAL data) ---------------------------- 
+/*
 
 // Polling for new data -- this will replace other piece inside ChartInstance that polls.
 function fetchAndUpdateCharts() {
@@ -51,6 +59,9 @@ function fetchAndUpdateCharts() {
 
 // Start polling
 setInterval(fetchAndUpdateCharts, 500);
+
+*/
+
 
 // ensure it ran fully w console log
 log("fuck yourself javascript.");
