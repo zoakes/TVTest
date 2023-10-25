@@ -1,26 +1,36 @@
 const express = require('express');
 const fs = require('fs');
+const chokidar = require('chokidar');
+const csvParser = require('csv-parser');
 const app = express();
 const port = 3000;
+
+let latestData = [];
 
 app.use(express.static('public'));
 
 app.get('/data', (req, res) => {
-  fs.readFile('data.json', 'utf8', (err, data) => {
-    if (err) {
-      res.status(500).send({ error: 'Error reading file' });
-      return;
-    }
-    try {
-      const jsonData = JSON.parse(data);
-      res.json(jsonData);
-    } catch (parseError) {
-      res.status(500).send({ error: 'Error parsing JSON data' });
-    }
-  });
+  res.json(latestData);
 });
 
+const watcher = chokidar.watch('data.csv', {
+  ignored: /(^|[\/\\])\../, // ignore dotfiles
+  persistent: true
+});
 
+watcher.on('add', path => readCsv(path)).on('change', path => readCsv(path));
+
+function readCsv(filePath) {
+  const results = [];
+  fs.createReadStream(filePath)
+    .pipe(csvParser())
+    .on('data', (data) => results.push(data))
+    .on('end', () => {
+      latestData = results;
+      console.log('CSV update successfully processed');
+      console.log('rows processed', results.length);
+    });
+}
 
 app.listen(port, () => {
   console.log(`Server running at http://localhost:${port}`);
