@@ -11,10 +11,45 @@ export default class ChartInstance {
         this.lastValue = 50;
         this.lastTime = Math.floor(Date.now() / 1000);
         this.allMarkers = [];
-        this.startUpdates();
+        this.startMockedUpdates(); // HIDE this, when running w real data. 
     }
 
-    // This is all mocked code -- temporary.
+    updateWithData(row) {
+        // Convert row to chart data format
+        const chartData = {
+            time: row.time / 1000,  // Assuming 'time' is in a format that needs conversion
+            // This is where we do calculation TO basis price... we could also plot this in child terms? maybe easier. 
+            value: (row.child_bid + row.child_ask) / 2,
+        };
+        this.series.update(chartData);
+
+        // Determine if this row should create a marker
+        const newMarker = this.evaluateRowForMarker(row);
+        if (newMarker) {
+            this.allMarkers.push(newMarker);
+            this.series.setMarkers(this.allMarkers);
+        }
+    }
+
+
+    evaluateRowForMarker(row) {
+        // Implement logic here to decide if a marker should be created
+        // and what its properties should be, based on the row data.
+
+        // CAN store state, too! say last row vs this row changes.
+        if (false) {
+            return {
+                time: row.time / 1000,
+                position: 'aboveBar',  // or 'belowBar'
+                color: row.markerColor,  // e.g., 'red' or 'green'
+                shape: 'arrowUp'  // or 'arrowDown'
+            };
+        }
+        return null;
+    }
+
+    // ---------------------- MOCKED CODE ------------------------------ 
+    
 
     generateDataPoint(previousValue) {
         const randomChange = Math.random() * 2 - 1;
@@ -45,7 +80,7 @@ export default class ChartInstance {
 
     // this is where we poll for updates. 
 
-    startUpdates() {
+    startMockedUpdates() {
         setInterval(() => {
             this.lastTime += 5;
             this.lastValue = this.generateDataPoint(this.lastValue);

@@ -20,6 +20,7 @@ const watcher = chokidar.watch('data.csv', {
 
 watcher.on('add', path => readCsv(path)).on('change', path => readCsv(path));
 
+// TODO: make this 'faster'
 function readCsv(filePath) {
   const results = [];
   fs.createReadStream(filePath)
